@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JDmate · 求职沟通助手（作品演示）</title>
+<!--
+  ============================================================================
+  GitHub Pages 入口页。
+
+  ★ 发布前只需改下面的「你的名字 / 联系方式 / GitHub 链接」。
+
+  同目录三个文件：
+    index.html     本页（入口）
+    demo.html      可交互原型（真的能点：切换状态、输入、校验、生成、诊断）
+    showcase.html  作品说明（问题 → 产品决策 → 技术难点 → 复盘）
+  三个都是**完全自包含**的单文件，不依赖任何外部资源。
+  ============================================================================
+-->
+<style>
+  :root{
+    --text:#0f172a; --text-2:#475569; --text-3:#7b8698;
+    --border:#e5e7eb; --border-strong:#d5d9e0;
+    --primary:#4f46e5; --primary-soft:#eef2ff; --accent:#0ea5a4;
+    --ok:#16a34a; --warn:#d97706;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;color:var(--text);font:400 15px/1.75 var(--sans);-webkit-font-smoothing:antialiased;
+    background:radial-gradient(900px 420px at 12% -8%,#eef2ff 0%,rgba(238,242,255,0) 60%),
+               radial-gradient(700px 340px at 88% 0%,#e6fbfa 0%,rgba(230,251,250,0) 55%),#fff;
+    min-height:100vh;
+  }
+  a{color:var(--primary);text-decoration:none}
+  .wrap{max-width:980px;margin:0 auto;padding:64px 24px 72px}
+  .who{font-size:13.5px;color:var(--text-2);display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
+  .who b{font-size:16px;color:var(--text)}
+  .who .d{color:var(--border-strong)}
+  h1{margin:18px 0 10px;font-size:34px;line-height:1.3;letter-spacing:-.5px}
+  h1 .grad{background:linear-gradient(92deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin:0;max-width:720px;font-size:16.5px;color:var(--text-2)}
+  .lead strong{color:var(--text)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0 34px}
+  .kpi{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+  .kpi .n{font-size:21px;font-weight:750;letter-spacing:-.3px}
+  .kpi .l{font-size:11.5px;color:var(--text-3);margin-top:2px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:900px){ .cards{grid-template-columns:1fr 1fr} }
+  @media (max-width:640px){ .cards{grid-template-columns:1fr} h1{font-size:26px} .wrap{padding:40px 20px 56px} }
+  .card{
+    display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;
+    transition:.16s;box-shadow:0 1px 2px rgba(15,23,42,.04);
+  }
+  .card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 14px 32px rgba(79,70,229,.13)}
+  .card .ic{font-size:22px}
+  .card .t{margin:10px 0 6px;font-size:17px;font-weight:750;color:var(--text)}
+  .card .d{font-size:13.5px;color:var(--text-2);margin:0}
+  .card .go{margin-top:14px;font-size:13px;font-weight:650;color:var(--primary)}
+  .note{
+    margin-top:30px;padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.8;
+    background:#fbfbfc;border:1px solid var(--border);color:var(--text-2);
+  }
+  .note b{color:var(--text)}
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--border);color:var(--text-3);font-size:12.5px}
+  code{font-family:var(--mono);font-size:.92em;background:#f4f6fa;border:1px solid var(--border);border-radius:4px;padding:1px 5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ★ 改这里：姓名 / 联系方式 -->
+  <div class="who">
+    <b>你的名字</b><span class="d">·</span>
+    <span>求职方向：产品经理 / AI 应用开发</span><span class="d">·</span>
+    <a href="mailto:you@example.com">you@example.com</a>
+  </div>
+
+  <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span><br />一个求职者为自己做的工具</h1>
+
+  <p class="lead">
+    在 Boss 直聘的岗位页读懂当前 JD，结合<strong>我自己的简历</strong>生成 1~5 条风格不同的打招呼语，
+    本地评分后推荐最好的一条，并<strong>填进聊天框——但绝不替我发送</strong>。
+    单浏览器扩展、零后端，所有数据只留在本机。
+  </p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">10,000+</div><div class="l">行 TypeScript</div></div>
+    <div class="kpi"><div class="n">164</div><div class="l">个自动化测试（全绿）</div></div>
+    <div class="kpi"><div class="n">5 / 5</div><div class="l">真实岗位页快照抽取正确</div></div>
+    <div class="kpi"><div class="n">0</div><div class="l">后端服务 · 数据不出本机</div></div>
+  </div>
+
+  <div class="cards">
+    <a class="card" href="./demo.html">
+      <div class="ic">▶</div>
+      <div class="t">可交互原型</div>
+      <p class="d">
+        直接点。<b>右侧栏 11 种状态</b>（含生成加载态、识别原文、排障面板、三种异常提示）+
+        <b>配置页 6 个面板</b>；下拉、输入框、开关、校验、保存反馈都是真的能操作的。
+      </p>
+      <div class="go">开始体验 →</div>
+    </a>
+
+    <a class="card" href="./resume.html">
+      <div class="ic">📋</div>
+      <div class="t">示例简历</div>
+      <p class="d">
+        左边是简历原文，右边是产品解析出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）。
+        <b>打招呼语就是从右边这些字段 + 当前 JD 的交集里生成的。</b>
+      </p>
+      <div class="go">看看读出了什么 →</div>
+    </a>
+
+    <a class="card" href="./showcase.html">
+      <div class="ic">📄</div>
+      <div class="t">作品说明</div>
+      <p class="d">
+        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点
+        （反爬混淆还原 / Agent 节点架构 / 一个骗了我很久的 bug 是怎么查出来的）。
+      </p>
+      <div class="go">查看说明 →</div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>说明</b>：这是一个<strong>个人自用项目</strong>，页面里的是<b>可交互原型</b>（演示用数据），
+    不是线上系统——所以没有真实的 AI 调用与网络请求，点任何按钮都不会产生费用、也不会连到我的账号。
+    <br />
+    技术栈：TypeScript（strict）· Vite + CRXJS · React · Dexie(IndexedDB) · Zod · Vitest，单一 Manifest V3 扩展。
+  </div>
+
+  <footer>
+    <!-- ★ 改这里：你的联系方式 / GitHub -->
+    你的名字 · <a href="mailto:you@example.com">you@example.com</a> · 求职方向：产品经理 / AI 应用开发
+  </footer>
+
+</div>
+</body>
+</html>
