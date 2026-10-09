@@ -95,7 +95,15 @@
   /* 导览：告诉看的人「这些状态从哪点出来」，而不是给一排切换按钮 */
   .guide{margin-top:14px;background:#fff;border:1px solid var(--border);border-radius:13px;padding:14px 18px}
   .guide .gt{font-size:12.5px;font-weight:700;margin-bottom:3px}
+  .guide .gs2{font-weight:400;color:var(--text-3);font-size:11.5px}
   .guide .gs{font-size:11.5px;color:var(--text-3);margin-bottom:10px}
+  /* 次要的 9 项收进折叠：首屏只留最该看的 3 项，避免"信息太多不知道看哪" */
+  .gmore{margin-top:9px}
+  .gmore > summary{cursor:pointer;font-size:11.5px;font-weight:650;color:var(--primary);list-style:none;padding:5px 0}
+  .gmore > summary::-webkit-details-marker{display:none}
+  .gmore > summary::before{content:'▸ ';font-size:10.5px}
+  .gmore[open] > summary::before{content:'▾ '}
+  .gmore .gx{margin-top:6px}
   /* 清单里的每一项都是**真按钮**：点下去会真的走一遍产品里的操作，再切到结果 */
   .gx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   @media (max-width:820px){ .gx{grid-template-columns:1fr} }
@@ -142,7 +150,9 @@
 
   /* ---------- 侧边栏 ---------- */
   .panel{width:348px;flex:0 0 auto;border-left:1px solid var(--border);background:var(--surface-2);display:flex;flex-direction:column}
-  .panel .ph{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:44px;z-index:5}
+  /* ★ 侧边栏自己的头部**不吸顶**：一吸顶它就会盖住下面「当前岗位」那一块（用户明确反馈过）。
+     全页只留 .topbar 一条吸顶，返回按钮够用就够了。 */
+  .panel .ph{display:flex;align-items:center;gap:8px;padding:9px 11px;background:#fff;border-bottom:1px solid var(--border);position:relative;z-index:1}
   .panel .av{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;font-size:10.5px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
   .panel .pb{padding:10px 11px 16px;flex:1}
   .btnx{border:1px solid var(--border-strong);border-radius:6px;padding:3px 8px;font-size:10.5px;font-weight:600;background:#fff;color:var(--text-2);white-space:nowrap;transition:.12s;text-align:center}
@@ -321,14 +331,8 @@
   <div class="in">
     <h1>JDmate 功能演示 · 侧边栏 + 配置菜单</h1>
     <div class="sub">
-      一个<b>把 LLM 用在刀刃上的求职 Agent</b>：脚本负责拿到可靠事实，<b>模型负责理解语义</b>，规则负责永不失败。
-      在 Boss 直聘的岗位页读懂当前 JD，结合自己的简历生成风格与长度都不同的开场白，
-      本地打分后推荐最合适的一条，<b>填进聊天输入框但不发送</b>；数据只在本机，零后端。<br />
-      <b>模型用在哪：</b>① JD 结构化（<b>Agent 节点</b>，规则能搞定就走门禁、根本不调）② <b>开场白生成（LLM 主战场）</b>。
-      <b>故意不用模型：</b>页面抓取与反混淆、简历解析、匹配点计算、候选打分、事实护栏 ——
-      这些是确定性计算，规则更快更准还免费。<br />
-      下面把<b>右侧栏的全部功能与全部状态</b>、<b>配置菜单的 6 个面板</b>做成了可以真的点的原型：
-      下拉、输入、开关、校验、保存反馈都是活的，<b>每个状态都由真实操作走到</b>（页面底部有 12 项清单）。
+      一个求职者为自己做的求职 Agent：读懂岗位、结合我的简历写开场白，<b>填进聊天输入框但不替我发送</b>。
+      <b>模型只用在该用的地方</b>（JD 结构化 + 写开场白），其余环节交给脚本与规则。
     </div>
     <div class="who">
       <b>舒骏川</b><span class="d">·</span><span>求职方向：产品经理 / AI 应用开发</span><span class="d">·</span>
@@ -510,22 +514,27 @@
   </div>
 
   <div class="guide">
-    <div class="gt">下面每一项都是一次<b>真实操作</b>，点了会真的走一遍产品里的步骤，再切到结果</div>
-    <div class="gs">没有「状态切换」这种演示开关 —— 每个状态都是点出来的。少数"必须真的配置过才会变"的状态（配好 Key / 导入完简历之后的样子），在设置页里有<b>「保存并查看侧边栏效果」</b>按钮。</div>
+    <div class="gt">先看这三处<span class="gs2">——每一项点了都会真的走一遍产品里的操作，再切到结果</span></div>
+    <div class="gs">没有「状态切换」这种演示开关：每个状态都是点出来的。少数「必须真的配置过才会变」的状态（配好 Key / 导入完简历之后的样子），在设置页里有<b>「保存并查看侧边栏效果」</b>按钮。</div>
     <div class="gx">
-      <button class="gxi" data-act="g-generate"><span class="n">1</span><span class="tx"><b>生成流程</b><em>真的点一次「生成打招呼语」：先加载态，再出 3 条候选</em></span></button>
-      <button class="gxi" data-act="g-redetect"><span class="n">2</span><span class="tx"><b>换个岗位 · 空态</b><em>点「重新识别」：旧候选清空（换岗位后旧话术就不适用了）</em></span></button>
-      <button class="gxi" data-act="g-raw"><span class="n">3</span><span class="tx"><b>识别质量</b><em>展开「查看识别到的原文」：它到底读到了什么，一眼可判</em></span></button>
-      <button class="gxi" data-act="g-manual"><span class="n">4</span><span class="tx"><b>识别失败兜底</b><em>展开「手动粘贴」：抽不到也能把 JD 粘进来用</em></span></button>
-      <button class="gxi" data-act="g-diag"><span class="n">5</span><span class="tx"><b>出问题怎么查</b><em>展开排障面板并<b>真的运行一次诊断</b></em></span></button>
-      <button class="gxi" data-act="g-prompt"><span class="n">6</span><span class="tx"><b>提示词：模型到底拿到了什么</b><em>展开本次真正发给 LLM 的内容（系统约束 + 简历 + JD 原文 + 本地算好的匹配点）</em></span></button>
-      <button class="gxi" data-act="g-error"><span class="n">7</span><span class="tx"><b>生成失败</b><em>去设置把 Base URL 改成 <code>api.deepseek.com</code>（少个协议头），再生成</em></span></button>
-      <button class="gxi" data-act="g-fix"><span class="n">8</span><span class="tx"><b>修好再来</b><em>把 Base URL 填回去，再生成一次 —— 恢复成正常结果</em></span></button>
-      <button class="gxi" data-act="g-demo"><span class="n">9</span><span class="tx"><b>DEMO 模式提醒</b><em>去设置切到 DEMO（不联网），看侧边栏的提醒长什么样</em></span></button>
-      <button class="gxi" data-act="g-noresume"><span class="n">10</span><span class="tx"><b>没导入简历</b><em>去简历库真的删掉当前简历</em></span></button>
-      <button class="gxi" data-act="g-noperm"><span class="n">11</span><span class="tx"><b>站点未授权</b><em>去数据与隐私真的关掉站点权限开关</em></span></button>
-      <button class="gxi" data-act="g-restore"><span class="n">12</span><span class="tx"><b>一键复原</b><em>权限打开 + 简历装回来 + Base URL 填对，回到能用的状态</em></span></button>
+      <button class="gxi" data-act="g-generate"><span class="n">1</span><span class="tx"><b>生成流程</b><em>真的点一次「生成打招呼语」：先加载态，再出 3 条候选 —— 重点看推荐理由与未命中关键词</em></span></button>
+      <button class="gxi" data-act="g-prompt"><span class="n">2</span><span class="tx"><b>提示词：模型到底拿到了什么</b><em>展开本次真正发给 LLM 的内容（系统约束 + 简历 + JD 原文 + 本地算好的匹配点）</em></span></button>
+      <button class="gxi" data-act="g-diag"><span class="n">3</span><span class="tx"><b>出问题怎么查</b><em>展开排障面板并<b>真的运行一次诊断</b>：内容脚本 / 面板数据链路 / AI 调用都在这里</em></span></button>
     </div>
+    <details class="gmore">
+      <summary>其余 9 项：换岗位空态 / 识别原文 / 手动粘贴 / 生成失败与恢复 / DEMO 提醒 / 没导入简历 / 站点未授权 / 一键复原</summary>
+      <div class="gx">
+        <button class="gxi" data-act="g-redetect"><span class="n">4</span><span class="tx"><b>换个岗位 · 空态</b><em>点「重新识别」：旧候选清空（换岗位后旧话术就不适用了）</em></span></button>
+        <button class="gxi" data-act="g-raw"><span class="n">5</span><span class="tx"><b>识别质量</b><em>展开「查看识别到的原文」：它到底读到了什么，一眼可判</em></span></button>
+        <button class="gxi" data-act="g-manual"><span class="n">6</span><span class="tx"><b>识别失败兜底</b><em>展开「手动粘贴」：抽不到也能把 JD 粘进来用</em></span></button>
+        <button class="gxi" data-act="g-error"><span class="n">7</span><span class="tx"><b>生成失败</b><em>去设置把 Base URL 改成 <code>api.deepseek.com</code>（少个协议头），再生成</em></span></button>
+        <button class="gxi" data-act="g-fix"><span class="n">8</span><span class="tx"><b>修好再来</b><em>把 Base URL 填回去，再生成一次 —— 恢复成正常结果</em></span></button>
+        <button class="gxi" data-act="g-demo"><span class="n">9</span><span class="tx"><b>DEMO 模式提醒</b><em>去设置切到 DEMO（不联网），看侧边栏的提醒长什么样</em></span></button>
+        <button class="gxi" data-act="g-noresume"><span class="n">10</span><span class="tx"><b>没导入简历</b><em>去简历库真的删掉当前简历</em></span></button>
+        <button class="gxi" data-act="g-noperm"><span class="n">11</span><span class="tx"><b>站点未授权</b><em>去数据与隐私真的关掉站点权限开关</em></span></button>
+        <button class="gxi" data-act="g-restore"><span class="n">12</span><span class="tx"><b>一键复原</b><em>权限打开 + 简历装回来 + Base URL 填对，回到能用的状态</em></span></button>
+      </div>
+    </details>
   </div>
 </div>
 
