@@ -1,0 +1,6 @@
+# 这里只放能公开的静态页面
+node_modules/
+.env*
+*.key
+*.pem
+*.pdf
