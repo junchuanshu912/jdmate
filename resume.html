@@ -29,8 +29,15 @@
   a:hover{text-decoration:underline}
   .wrap{max-width:1120px;margin:0 auto;padding:28px 22px 60px}
 
-  .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:4px}
-  .top .back{font-size:12.5px;color:var(--text-3)}
+  .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  /* 唯一的跨页入口：返回主页。做得很显眼，功能页之间不互相跳转。 */
+  .homebtn{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--primary);color:#fff;border-radius:9px;
+    padding:7px 15px;font-size:13px;font-weight:650;text-decoration:none;
+    box-shadow:0 2px 10px rgba(79,70,229,.22);transition:.14s;
+  }
+  .homebtn:hover{background:#4338ca;color:#fff;text-decoration:none;box-shadow:0 4px 16px rgba(79,70,229,.3)}
   h1{margin:10px 0 4px;font-size:23px;letter-spacing:-.4px}
   .sub{color:var(--text-2);font-size:13.5px;margin:0 0 18px}
 
@@ -79,9 +86,7 @@
 <div class="wrap">
 
   <div class="top">
-    <a class="back" href="./index.html">← 返回</a>
-    <a class="back" href="./demo.html">可交互原型</a>
-    <a class="back" href="./showcase.html">作品说明</a>
+    <a class="homebtn" href="./index.html">← 返回主页</a>
   </div>
 
   <h1>示例简历：产品从这里读出了什么</h1>
@@ -209,14 +214,14 @@ Python、TypeScript、LangChain、RAG、Prompt 工程、
     姓名「张三」、公司「某某科技」、手机 <code>13800000000</code>、邮箱 <code>zhangsan@example.com</code>
     都是占位符，与任何真实个人无关 —— 页面里没有任何真实简历内容。
     <br />
-    想看这套字段怎么变成打招呼语：回到 <a href="./demo.html">可交互原型</a>，
-    点侧边栏的「⚡ 生成打招呼语」。
+    这套字段接下来怎么变成打招呼语，可回到主页进「可交互原型」，点侧边栏的「⚡ 生成打招呼语」。
   </div>
 
   <footer>
     这份演示简历的人设与原型里的岗位（华为 · 大模型技术支持专家）是**对得上**的：
     JD 要 Prompt 优化 / Agent 编排 / 监控告警 / Python，简历里正好都有；JD 要 Golang，简历里没有 ——
     所以原型里那条"✗ Golang"的未命中关键词是真的算出来的。
+    <div style="margin-top:8px"><a class="homebtn" href="./index.html">← 返回主页</a></div>
   </footer>
 
 </div>

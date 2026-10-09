@@ -8,13 +8,13 @@
   ============================================================================
   GitHub Pages 入口页。
 
-  ★ 发布前只需改下面的「你的名字 / 联系方式 / GitHub 链接」。
+  ★ 唯一的"主页"：另外三页都只有一个「← 返回主页」按钮，功能页之间不互相跳转。
 
-  同目录三个文件：
-    index.html     本页（入口）
-    demo.html      可交互原型（真的能点：切换状态、输入、校验、生成、诊断）
+  同目录三个功能页：
+    demo.html      可交互原型（真的能点：状态、输入、校验、生成、诊断）
+    resume.html    示例简历（原文 ↔ 解析出的结构化字段）
     showcase.html  作品说明（问题 → 产品决策 → 技术难点 → 复盘）
-  三个都是**完全自包含**的单文件，不依赖任何外部资源。
+  四个都是**自包含**单文件：无外链资源、无 CDN、无外链脚本。
   ============================================================================
 -->
 <style>
@@ -22,7 +22,7 @@
     --text:#0f172a; --text-2:#475569; --text-3:#7b8698;
     --border:#e5e7eb; --border-strong:#d5d9e0;
     --primary:#4f46e5; --primary-soft:#eef2ff; --accent:#0ea5a4;
-    --ok:#16a34a; --warn:#d97706;
+    --ok:#16a34a; --ok-soft:#e8f7ee; --warn:#d97706;
     --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',system-ui,sans-serif;
     --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   }
@@ -34,26 +34,44 @@
     min-height:100vh;
   }
   a{color:var(--primary);text-decoration:none}
-  .wrap{max-width:980px;margin:0 auto;padding:64px 24px 72px}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:980px;margin:0 auto;padding:60px 24px 72px}
   .who{font-size:13.5px;color:var(--text-2);display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
   .who b{font-size:16px;color:var(--text)}
   .who .d{color:var(--border-strong)}
-  h1{margin:18px 0 10px;font-size:34px;line-height:1.3;letter-spacing:-.5px}
+  h1{margin:18px 0 12px;font-size:34px;line-height:1.3;letter-spacing:-.5px}
   h1 .grad{background:linear-gradient(92deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .lead{margin:0;max-width:720px;font-size:16.5px;color:var(--text-2)}
+  .lead{margin:0 0 12px;max-width:760px;font-size:16.5px;color:var(--text-2)}
   .lead strong{color:var(--text)}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:28px 0 34px}
-  .kpi{background:#fff;border:1px solid var(--border);border-radius:12px;padding:12px 14px}
-  .kpi .n{font-size:21px;font-weight:750;letter-spacing:-.3px}
-  .kpi .l{font-size:11.5px;color:var(--text-3);margin-top:2px}
+
+  h2{margin:44px 0 6px;font-size:20px;letter-spacing:-.3px}
+  .h2sub{margin:0 0 18px;font-size:13.5px;color:var(--text-3)}
+
+  /* 功能：6 个亮点 */
+  .feats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){ .feats{grid-template-columns:1fr} }
+  .feat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px}
+  .feat .ic{font-size:19px;line-height:1}
+  .feat .t{margin:8px 0 5px;font-size:15px;font-weight:750}
+  .feat .d{margin:0;font-size:13.5px;color:var(--text-2)}
+  .feat .d b{color:var(--text)}
+
+  /* 取舍：4 条产品决策 */
+  .prins{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:760px){ .prins{grid-template-columns:1fr} }
+  .princ{background:var(--primary-soft);border:1px solid #dedbfb;border-radius:14px;padding:15px 17px}
+  .princ .t{font-size:14px;font-weight:750;color:#3730a3}
+  .princ .d{margin:5px 0 0;font-size:13px;color:#4338ca;line-height:1.7}
+
+  /* 三个功能页入口 */
   .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media (max-width:900px){ .cards{grid-template-columns:1fr 1fr} }
   @media (max-width:640px){ .cards{grid-template-columns:1fr} h1{font-size:26px} .wrap{padding:40px 20px 56px} }
   .card{
     display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;
-    transition:.16s;box-shadow:0 1px 2px rgba(15,23,42,.04);
+    transition:.16s;box-shadow:0 1px 2px rgba(15,23,42,.04);color:inherit;
   }
-  .card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 14px 32px rgba(79,70,229,.13)}
+  .card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 14px 32px rgba(79,70,229,.13);text-decoration:none}
   .card .ic{font-size:22px}
   .card .t{margin:10px 0 6px;font-size:17px;font-weight:750;color:var(--text)}
   .card .d{font-size:13.5px;color:var(--text-2);margin:0}
@@ -70,37 +88,140 @@
 <body>
 <div class="wrap">
 
-  <!-- ★ 改这里：姓名 / 联系方式 -->
   <div class="who">
-    <b>你的名字</b><span class="d">·</span>
+    <b>舒骏川</b><span class="d">·</span>
     <span>求职方向：产品经理 / AI 应用开发</span><span class="d">·</span>
-    <a href="mailto:you@example.com">you@example.com</a><span class="d">·</span>
+    <a href="mailto:1658449580@qq.com">1658449580@qq.com</a><span class="d">·</span>
     <a href="https://github.com/junchuanshu912">GitHub</a>
   </div>
 
-  <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span><br />一个求职者为自己做的工具</h1>
+  <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span><br />一个求职者为自己做的浏览器扩展</h1>
 
   <p class="lead">
-    在 Boss 直聘的岗位页读懂当前 JD，结合<strong>我自己的简历</strong>生成 1~5 条风格不同的打招呼语，
-    本地评分后推荐最好的一条，并<strong>填进聊天框——但绝不替我发送</strong>。
-    单浏览器扩展、零后端，所有数据只留在本机。
+    求职时真正费时间的不是「不会写」，而是<strong>同一个动作要重复几百遍</strong>：
+    打开一个岗位，JD 里几十条要求，我真正对得上的可能只有三四条；
+    招聘者每天要看成百条「您好，我对这个岗位很感兴趣」，
+    而我能证明自己的东西——量化成果、项目细节、技术选型的理由——全埋在简历里，
+    根本没时间一条条挑出来对应。
+  </p>
+  <p class="lead">
+    JDmate 把这个动作压到 3 秒。它是一个 Chrome / Edge 扩展：在 Boss 直聘的岗位页一键读懂当前 JD，
+    结合<strong>我自己的简历</strong>生成风格与长度都不同的开场白，本地打分后推荐最合适的一条，
+    <strong>填进聊天输入框——但绝不替我发送</strong>。
   </p>
 
-  <div class="kpis">
-    <div class="kpi"><div class="n">10,000+</div><div class="l">行 TypeScript</div></div>
-    <div class="kpi"><div class="n">175</div><div class="l">个自动化测试（全绿）</div></div>
-    <div class="kpi"><div class="n">5 / 5</div><div class="l">真实岗位页快照抽取正确</div></div>
-    <div class="kpi"><div class="n">0</div><div class="l">后端服务 · 数据不出本机</div></div>
+  <h2>它具体做什么</h2>
+  <p class="h2sub">六个功能，每一个都对着上面那句"没时间一条条挑出来"。</p>
+  <div class="feats">
+
+    <div class="feat">
+      <div class="ic">🔍</div>
+      <div class="t">读懂 JD —— 四级回退，不卡死</div>
+      <p class="d">
+        结构化选择器 → 语义选择器 → 启发式 → 手动粘贴。Boss 有反爬混淆（乱码类名、隐藏误导文本），
+        所以先把 <code>innerText</code> 还原成真实文本，再剔除「相似职位 / 推荐位 / 页脚」这些
+        长得像正文的噪声。任何一步失效都有下一步接着，最差也能把 JD 粘进来照样用。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">✍️</div>
+      <div class="t">对着简历说话，而不是对着岗位夸</div>
+      <p class="d">
+        从简历里挑出与这个岗位<b>真正相关</b>的经历、技能与量化成果，一次给 1~5 条候选。
+        风格可选（专业硬核 / 数据说话 / 简洁直接 / 亲切自然 / 主动进取），
+        长度可选（一句话 / 100-150 字 / 200-300 字 / 400 字内）。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">📊</div>
+      <div class="t">本地打分，并且说清为什么</div>
+      <p class="d">
+        7 个维度加权（关键词覆盖、长度适配、量化密度、个性化程度、可读性、新鲜度、风格匹配）
+        再减去套话与夸张的扣分项。每条候选都给分数、推荐理由、命中了哪些关键词、
+        <b>还差哪几个</b>——不是只丢一句"这条更好"。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">🛡️</div>
+      <div class="t">事实护栏：不许替我编数字</div>
+      <p class="d">
+        话术里出现的每一个数字都会<b>回查简历原文</b>，简历里没有的量化成果会被点名标出。
+        宁可少说一句漂亮话，也不能让 AI 替我编一个"提升了 30%"。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">🚦</div>
+      <div class="t">填进去，但绝不发送</div>
+      <p class="d">
+        只把内容放进聊天输入框，回车由我自己按。这条规则<b>写死在代码里</b>，
+        也写进了送给模型的提示词里——它没有"自动发送"这个选项。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">🔁</div>
+      <div class="t">收藏岗位，反向优化简历</div>
+      <p class="d">
+        看到好岗位先一键收藏。攒够一批之后，用它们反查
+        <b>我反复对不上的是哪几项能力</b>，再回头改简历——投递方向比投递数量值钱。
+      </p>
+    </div>
+
   </div>
 
+  <h2>几个想清楚了的取舍</h2>
+  <p class="h2sub">这些是做完之后回头看，最影响成品质量的决定。</p>
+  <div class="prins">
+
+    <div class="princ">
+      <div class="t">规则先行，模型兜底</div>
+      <p class="d">
+        抽取、分段、打分全部先用确定性规则算，只有"规则给不出结构化字段"时才交给模型；
+        模型超过 12 秒就直接用规则结果渲染并标注原因。
+        理由：聊天助手可以等，<b>找工作的工具不能</b>。
+      </p>
+    </div>
+
+    <div class="princ">
+      <div class="t">不发送，是唯一不可配置的规则</div>
+      <p class="d">
+        自动打招呼会让我在完全不知情的情况下说出不像我的话，还可能触发平台风控。
+        所以这个开关我<b>没有做</b>——不是默认关闭，是根本不存在。
+      </p>
+    </div>
+
+    <div class="princ">
+      <div class="t">数据不出本机</div>
+      <p class="d">
+        单一 MV3 扩展、零后端。简历、收藏、生成历史只存在本机 IndexedDB，
+        API Key 经 AES-GCM 加密后落盘。没有账号体系，也没有任何上传。
+      </p>
+    </div>
+
+    <div class="princ">
+      <div class="t">演示页里不做"状态切换器"</div>
+      <p class="d">
+        右侧栏的每个状态都得由<b>真实操作</b>走到：关掉站点权限、删掉简历、
+        把 Base URL 改错、切到 DEMO……给外人看的东西，"方便"不能靠外挂开关。
+      </p>
+    </div>
+
+  </div>
+
+  <h2>三页看完</h2>
+  <p class="h2sub">建议顺序：先点原型，再看简历页，最后看说明。每页左上角都有「← 返回主页」。</p>
   <div class="cards">
     <a class="card" href="./demo.html">
       <div class="ic">▶</div>
       <div class="t">可交互原型</div>
       <p class="d">
-        直接点。<b>右侧栏的全部状态</b>（生成加载态、识别原文、排障面板、三种异常提示…）
-        + <b>配置页 6 个面板</b>；下拉、输入框、开关、校验、保存反馈都是真的能操作的，
-        <b>页面底部有 12 项"点它会真的走一遍"的清单</b>——每个状态都是点出来的，没有状态开关。
+        真的能点。<b>右侧栏的全部状态</b>（生成加载态、识别原文、排障面板、三种异常提示…）
+        + <b>配置页 6 个面板</b>；下拉、输入框、开关、校验、保存反馈都是真的能操作的。
+        页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作再切到结果。
       </p>
       <div class="go">开始体验 →</div>
     </a>
@@ -110,7 +231,8 @@
       <div class="t">示例简历</div>
       <p class="d">
         左边是简历原文，右边是产品解析出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）。
-        <b>打招呼语就是从右边这些字段 + 当前 JD 的交集里生成的。</b>
+        打招呼语就是这两边的交集——所以能看到<b>「它为什么推荐那一条」</b>，
+        以及被标记出来的那个简历里并不存在的数字。
       </p>
       <div class="go">看看读出了什么 →</div>
     </a>
@@ -119,8 +241,9 @@
       <div class="ic">📄</div>
       <div class="t">作品说明</div>
       <p class="d">
-        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点
-        （反爬混淆还原 / Agent 节点架构 / 一个骗了我很久的 bug 是怎么查出来的）。
+        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点：
+        Boss 反爬混淆怎么还原、Agent 节点架构怎么做到<b>永不失败</b>、
+        一个骗了我很久的 bug 最后是怎么查出来的。
       </p>
       <div class="go">查看说明 →</div>
     </a>
@@ -132,14 +255,13 @@
     <a href="https://junchuanshu912.github.io/jdmate/demo.html">/demo.html</a>）。
     <br />
     <b>说明</b>：这是一个<strong>个人自用项目</strong>，页面里的是<b>可交互原型</b>（演示用数据），
-    不是线上系统——所以没有真实的 AI 调用与网络请求，点任何按钮都不会产生费用、也不会连到我的账号。
+    不是线上系统——点任何按钮都不会产生费用、也不会连到我的账号。
     <br />
     技术栈：TypeScript（strict）· Vite + CRXJS · React · Dexie(IndexedDB) · Zod · Vitest，单一 Manifest V3 扩展。
   </div>
 
   <footer>
-    <!-- ★ 改这里：你的联系方式 / GitHub -->
-    你的名字 · <a href="mailto:you@example.com">you@example.com</a> · 求职方向：产品经理 / AI 应用开发 ·
+    舒骏川 · <a href="mailto:1658449580@qq.com">1658449580@qq.com</a> · 求职方向：产品经理 / AI 应用开发 ·
     <a href="https://github.com/junchuanshu912">github.com/junchuanshu912</a>
   </footer>
 

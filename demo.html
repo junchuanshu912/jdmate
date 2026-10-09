@@ -66,6 +66,9 @@
   .nb{border:1px solid var(--border-strong);background:#fff;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--text-2);transition:.13s;text-decoration:none;display:inline-block}
   .nb:hover{border-color:var(--primary);color:var(--primary)}
   .nb.on{background:var(--primary);border-color:var(--primary);color:#fff}
+  /* 唯一的跨页入口：返回主页。做得最显眼，功能页之间不互相跳转。 */
+  .nb.home{background:var(--primary);border-color:var(--primary);color:#fff;box-shadow:0 2px 10px rgba(79,70,229,.22)}
+  .nb.home:hover{background:#4338ca;border-color:#4338ca;color:#fff;box-shadow:0 4px 16px rgba(79,70,229,.3)}
   .sep{width:1px;height:20px;background:var(--border);margin:0 3px}
   .pill{border:1px solid var(--border-strong);background:#fff;border-radius:999px;padding:3px 10px;font-size:11.5px;color:var(--text-2);transition:.12s}
   .pill:hover{border-color:var(--primary);color:var(--primary)}
@@ -308,17 +311,21 @@
 <!-- ============================ 顶栏 ============================ -->
 <div class="top">
   <div class="in">
-    <!-- ★ 改这里：姓名 / 联系方式 -->
     <h1>JDmate 功能演示 · 侧边栏 + 配置菜单</h1>
-    <div class="sub">在 Boss 直聘岗位页读懂 JD，结合自己的简历生成打招呼语，<b>填进输入框但不发送</b>。</div>
+    <div class="sub">
+      在 Boss 直聘的岗位页读懂当前 JD，结合自己的简历生成风格与长度都不同的开场白，
+      本地打分后推荐最合适的一条，<b>填进聊天输入框但不发送</b>；数据只在本机，零后端。<br />
+      这一页把<b>右侧栏的全部功能与全部状态</b>、以及<b>配置菜单的 6 个面板</b>做成了可以真的点的原型：
+      下拉、输入、开关、校验、保存反馈都是活的，<b>每个状态都由真实操作走到</b>（页面底部有 12 项清单）。
+    </div>
     <div class="who">
-      <b>你的名字</b><span class="d">·</span><span>求职方向：产品经理 / AI 应用开发</span><span class="d">·</span>
-      <a href="mailto:you@example.com">you@example.com</a>
+      <b>舒骏川</b><span class="d">·</span><span>求职方向：产品经理 / AI 应用开发</span><span class="d">·</span>
+      <a href="mailto:1658449580@qq.com">1658449580@qq.com</a>
     </div>
 
     <div class="bars">
       <!-- 没有"界面切换"标签页：配置页是从侧边栏的「设置」按钮进去的，和真实产品一样 -->
-      <a class="nb" id="siteLink" href="https://junchuanshu912.github.io/jdmate/">← 返回作品集</a>
+      <a class="nb home" id="siteLink" href="https://junchuanshu912.github.io/jdmate/">← 返回主页</a>
       <button class="nb hide" id="backBtn" data-screen="panel">← 返回侧边栏</button>
       <span class="proto" id="protoTag">原型 · 无真实 AI 调用</span>
     </div>
@@ -918,9 +925,9 @@
 </div>
 
 <footer>
-  <!-- ★ 改这里：你的联系方式 -->
-  你的名字 · <a href="mailto:you@example.com">you@example.com</a> · 求职方向：产品经理 / AI 应用开发
+  舒骏川 · <a href="mailto:1658449580@qq.com">1658449580@qq.com</a> · 求职方向：产品经理 / AI 应用开发
   <div style="margin-top:5px">单文件功能演示 · 数据来自 5 份真实岗位页快照 · 无真实 AI 调用 · 可用浏览器「打印 → 另存为 PDF」</div>
+  <div style="margin-top:10px"><a class="nb home" href="https://junchuanshu912.github.io/jdmate/">← 返回主页</a></div>
 </footer>
 
 <div class="toast" id="toast"></div>
