@@ -8,7 +8,9 @@
   ============================================================================
   GitHub Pages 入口页。
 
+  ★ 版式约定：三张「体验入口」卡**放在 h1 正下方**，进首页不用滚动就能点进去。
   ★ 唯一的"主页"：另外三页都只有一个「← 返回主页」按钮，功能页之间不互相跳转。
+  ★ 不放自夸指标（多少行代码 / 多少个测试）—— 用户明确不要给 HR 看这个。
 
   同目录三个功能页：
     demo.html      可交互原型（真的能点：状态、输入、校验、生成、诊断）
@@ -29,55 +31,68 @@
   *{box-sizing:border-box}
   body{
     margin:0;color:var(--text);font:400 15px/1.75 var(--sans);-webkit-font-smoothing:antialiased;
-    background:radial-gradient(900px 420px at 12% -8%,#eef2ff 0%,rgba(238,242,255,0) 60%),
-               radial-gradient(700px 340px at 88% 0%,#e6fbfa 0%,rgba(230,251,250,0) 55%),#fff;
+    background:radial-gradient(1100px 460px at 12% -8%,#eef2ff 0%,rgba(238,242,255,0) 60%),
+               radial-gradient(900px 380px at 88% 0%,#e6fbfa 0%,rgba(230,251,250,0) 55%),#fff;
     min-height:100vh;
   }
   a{color:var(--primary);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{max-width:980px;margin:0 auto;padding:60px 24px 72px}
+  /* 容器加宽：原来 980px 在 PC 上显得窄，功能区两列各只有 470px */
+  .wrap{max-width:1180px;margin:0 auto;padding:48px 28px 72px}
+
   .who{font-size:13.5px;color:var(--text-2);display:flex;gap:10px;flex-wrap:wrap;align-items:baseline}
   .who b{font-size:16px;color:var(--text)}
   .who .d{color:var(--border-strong)}
-  h1{margin:18px 0 12px;font-size:34px;line-height:1.3;letter-spacing:-.5px}
+  h1{margin:16px 0 10px;font-size:36px;line-height:1.28;letter-spacing:-.6px}
   h1 .grad{background:linear-gradient(92deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .lead{margin:0 0 12px;max-width:760px;font-size:16.5px;color:var(--text-2)}
-  .lead strong{color:var(--text)}
+  .tagline{margin:0;font-size:16px;color:var(--text-2)}
 
-  h2{margin:44px 0 6px;font-size:20px;letter-spacing:-.3px}
+  h2{margin:46px 0 6px;font-size:20px;letter-spacing:-.3px}
+  h2.top{margin-top:32px}
   .h2sub{margin:0 0 18px;font-size:13.5px;color:var(--text-3)}
 
-  /* 功能：6 个亮点 */
-  .feats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:760px){ .feats{grid-template-columns:1fr} }
+  /* ---------- 顶部：三张体验入口卡（进首页就能点） ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media (max-width:860px){ .cards{grid-template-columns:1fr} h1{font-size:27px} }
+  .card{
+    display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:16px;
+    padding:20px 22px;transition:.16s;box-shadow:0 1px 3px rgba(15,23,42,.05);color:inherit;position:relative;
+  }
+  .card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 16px 36px rgba(79,70,229,.15);text-decoration:none}
+  .card .ic{font-size:22px}
+  .card .t{margin:9px 0 6px;font-size:17.5px;font-weight:750;color:var(--text)}
+  .card .d{font-size:13.5px;color:var(--text-2);margin:0;flex:1}
+  .card .go{
+    margin-top:15px;font-size:13.5px;font-weight:700;color:#fff;background:var(--primary);
+    border-radius:9px;padding:8px 14px;align-self:flex-start;box-shadow:0 2px 10px rgba(79,70,229,.22);
+  }
+  .card:hover .go{background:#4338ca}
+
+  /* ---------- 正文两段（为什么做） ---------- */
+  .prose{max-width:900px}
+  .prose p{margin:0 0 12px;font-size:16px;color:var(--text-2);line-height:1.8}
+  .prose p:last-child{margin-bottom:0}
+  .prose strong{color:var(--text)}
+
+  /* ---------- 功能：PC 上三列 ---------- */
+  .feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:1040px){ .feats{grid-template-columns:1fr 1fr} }
+  @media (max-width:700px){ .feats{grid-template-columns:1fr} }
   .feat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px 18px}
   .feat .ic{font-size:19px;line-height:1}
-  .feat .t{margin:8px 0 5px;font-size:15px;font-weight:750}
+  .feat .t{margin:8px 0 5px;font-size:15px;font-weight:750;line-height:1.4}
   .feat .d{margin:0;font-size:13.5px;color:var(--text-2)}
   .feat .d b{color:var(--text)}
 
-  /* 取舍：4 条产品决策 */
+  /* ---------- 取舍 ---------- */
   .prins{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:760px){ .prins{grid-template-columns:1fr} }
-  .princ{background:var(--primary-soft);border:1px solid #dedbfb;border-radius:14px;padding:15px 17px}
-  .princ .t{font-size:14px;font-weight:750;color:#3730a3}
-  .princ .d{margin:5px 0 0;font-size:13px;color:#4338ca;line-height:1.7}
+  @media (max-width:700px){ .prins{grid-template-columns:1fr} }
+  .princ{background:var(--primary-soft);border:1px solid #dedbfb;border-radius:14px;padding:15px 18px}
+  .princ .t{font-size:14.5px;font-weight:750;color:#3730a3}
+  .princ .d{margin:5px 0 0;font-size:13.5px;color:#4338ca;line-height:1.72}
 
-  /* 三个功能页入口 */
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media (max-width:900px){ .cards{grid-template-columns:1fr 1fr} }
-  @media (max-width:640px){ .cards{grid-template-columns:1fr} h1{font-size:26px} .wrap{padding:40px 20px 56px} }
-  .card{
-    display:block;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px 22px;
-    transition:.16s;box-shadow:0 1px 2px rgba(15,23,42,.04);color:inherit;
-  }
-  .card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 14px 32px rgba(79,70,229,.13);text-decoration:none}
-  .card .ic{font-size:22px}
-  .card .t{margin:10px 0 6px;font-size:17px;font-weight:750;color:var(--text)}
-  .card .d{font-size:13.5px;color:var(--text-2);margin:0}
-  .card .go{margin-top:14px;font-size:13px;font-weight:650;color:var(--primary)}
   .note{
-    margin-top:30px;padding:14px 16px;border-radius:12px;font-size:13px;line-height:1.8;
+    margin-top:34px;padding:15px 18px;border-radius:12px;font-size:13px;line-height:1.85;
     background:#fbfbfc;border:1px solid var(--border);color:var(--text-2);
   }
   .note b{color:var(--text)}
@@ -95,20 +110,63 @@
     <a href="https://github.com/junchuanshu912">GitHub</a>
   </div>
 
-  <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span><br />一个求职者为自己做的浏览器扩展</h1>
+  <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span></h1>
+  <p class="tagline">一个求职者为自己做的 Chrome / Edge 扩展：读懂岗位，结合我的简历写开场白，<b>填进输入框但不替我发送</b>。</p>
 
-  <p class="lead">
-    求职时真正费时间的不是「不会写」，而是<strong>同一个动作要重复几百遍</strong>：
-    打开一个岗位，JD 里几十条要求，我真正对得上的可能只有三四条；
-    招聘者每天要看成百条「您好，我对这个岗位很感兴趣」，
-    而我能证明自己的东西——量化成果、项目细节、技术选型的理由——全埋在简历里，
-    根本没时间一条条挑出来对应。
-  </p>
-  <p class="lead">
-    JDmate 把这个动作压到 3 秒。它是一个 Chrome / Edge 扩展：在 Boss 直聘的岗位页一键读懂当前 JD，
-    结合<strong>我自己的简历</strong>生成风格与长度都不同的开场白，本地打分后推荐最合适的一条，
-    <strong>填进聊天输入框——但绝不替我发送</strong>。
-  </p>
+  <!-- ★ 三张入口卡放在最上面：进首页不用滚动就能点进去 -->
+  <h2 class="top">直接点开看</h2>
+  <p class="h2sub">三个页面都能直接点，左上角都有「← 返回主页」。建议先点第一个。</p>
+  <div class="cards">
+
+    <a class="card" href="./demo.html">
+      <div class="ic">▶</div>
+      <div class="t">可交互原型</div>
+      <p class="d">
+        <b>推荐先看这个。</b>右侧栏的全部状态（生成加载态、识别原文、排障面板、三种异常提示…）
+        + 配置页 6 个面板，下拉、输入框、开关、校验、保存反馈都是真的能操作的。
+        页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作再切到结果。
+      </p>
+      <div class="go">开始体验 →</div>
+    </a>
+
+    <a class="card" href="./resume.html">
+      <div class="ic">📋</div>
+      <div class="t">示例简历</div>
+      <p class="d">
+        左边是简历原文，右边是产品解析出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）。
+        开场白就是这两边的交集——所以能看到<b>「它为什么推荐那一条」</b>，
+        以及被标出来的那个简历里并不存在的数字。
+      </p>
+      <div class="go">看看读出了什么 →</div>
+    </a>
+
+    <a class="card" href="./showcase.html">
+      <div class="ic">📄</div>
+      <div class="t">作品说明</div>
+      <p class="d">
+        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点：
+        Boss 反爬混淆怎么还原、Agent 节点架构怎么做到<b>永不失败</b>、
+        一个骗了我很久的 bug 最后是怎么查出来的。
+      </p>
+      <div class="go">查看说明 →</div>
+    </a>
+
+  </div>
+
+  <h2>为什么做这个</h2>
+  <div class="prose">
+    <p>
+      求职最费时间的不是「不会写」，而是<strong>同一个动作要重复几百遍</strong>：
+      一个岗位几十条要求，我真正对得上的常只有三四条；招聘者每天要看成百条
+      「您好，我对这个岗位很感兴趣」；而能证明我的东西——量化成果、项目细节、技术选型的理由——
+      全埋在简历里，根本没时间一条条挑出来对应。
+    </p>
+    <p>
+      JDmate 把这个动作压到 3 秒：在 Boss 直聘的岗位页读懂当前 JD，结合<strong>我自己的简历</strong>
+      生成 1~5 条风格与长度都不同的开场白，本地打分后推荐最合适的一条，
+      <strong>填进聊天输入框——但绝不替我发送</strong>。
+    </p>
+  </div>
 
   <h2>它具体做什么</h2>
   <p class="h2sub">六个功能，每一个都对着上面那句"没时间一条条挑出来"。</p>
@@ -210,43 +268,6 @@
       </p>
     </div>
 
-  </div>
-
-  <h2>三页看完</h2>
-  <p class="h2sub">建议顺序：先点原型，再看简历页，最后看说明。每页左上角都有「← 返回主页」。</p>
-  <div class="cards">
-    <a class="card" href="./demo.html">
-      <div class="ic">▶</div>
-      <div class="t">可交互原型</div>
-      <p class="d">
-        真的能点。<b>右侧栏的全部状态</b>（生成加载态、识别原文、排障面板、三种异常提示…）
-        + <b>配置页 6 个面板</b>；下拉、输入框、开关、校验、保存反馈都是真的能操作的。
-        页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作再切到结果。
-      </p>
-      <div class="go">开始体验 →</div>
-    </a>
-
-    <a class="card" href="./resume.html">
-      <div class="ic">📋</div>
-      <div class="t">示例简历</div>
-      <p class="d">
-        左边是简历原文，右边是产品解析出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）。
-        打招呼语就是这两边的交集——所以能看到<b>「它为什么推荐那一条」</b>，
-        以及被标记出来的那个简历里并不存在的数字。
-      </p>
-      <div class="go">看看读出了什么 →</div>
-    </a>
-
-    <a class="card" href="./showcase.html">
-      <div class="ic">📄</div>
-      <div class="t">作品说明</div>
-      <p class="d">
-        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点：
-        Boss 反爬混淆怎么还原、Agent 节点架构怎么做到<b>永不失败</b>、
-        一个骗了我很久的 bug 最后是怎么查出来的。
-      </p>
-      <div class="go">查看说明 →</div>
-    </a>
   </div>
 
   <div class="note">
