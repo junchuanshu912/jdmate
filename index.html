@@ -91,6 +91,19 @@
   .princ .t{font-size:14.5px;font-weight:750;color:#3730a3}
   .princ .d{margin:5px 0 0;font-size:13.5px;color:#4338ca;line-height:1.72}
 
+  /* ---------- 分工表：哪里用了模型 / 哪里故意不用 ---------- */
+  .tblwrap{margin-top:4px;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#fff}
+  .tbl{width:100%;border-collapse:collapse}
+  .tbl th,.tbl td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--border);font-size:13.5px;vertical-align:top;line-height:1.7}
+  .tbl tr:last-child th,.tbl tr:last-child td{border-bottom:none}
+  .tbl thead th{font-size:11.5px;color:var(--text-3);font-weight:650;background:#fbfbfc;letter-spacing:.3px;padding:9px 15px}
+  .tbl td:first-child{width:25%;color:var(--text);font-weight:700}
+  .tbl td:nth-child(2){width:31%}
+  .tbl .llm{color:#3730a3;background:var(--primary-soft);border:1px solid #dedbfb;font-weight:700;border-radius:6px;padding:2px 8px;display:inline-block;font-size:12px}
+  .tbl .rule{color:#0f766e;background:#e6fbfa;border:1px solid #c9efec;font-weight:700;border-radius:6px;padding:2px 8px;display:inline-block;font-size:12px}
+  .tbl code{font-size:12px}
+  @media (max-width:820px){ .tbl td:first-child,.tbl td:nth-child(2){width:auto} }
+
   .note{
     margin-top:34px;padding:15px 18px;border-radius:12px;font-size:13px;line-height:1.85;
     background:#fbfbfc;border:1px solid var(--border);color:var(--text-2);
@@ -111,7 +124,11 @@
   </div>
 
   <h1>JDmate —— 把「读 JD → 写开场白」压缩到 <span class="grad">3 秒</span></h1>
-  <p class="tagline">一个求职者为自己做的 Chrome / Edge 扩展：读懂岗位，结合我的简历写开场白，<b>填进输入框但不替我发送</b>。</p>
+  <p class="tagline">
+    一个求职者为自己做的 Chrome / Edge 扩展，也是一个<b>把 LLM 用在刀刃上的求职 Agent</b>：
+    脚本负责拿到可靠事实，<b>模型负责理解语义</b>，规则负责永不失败。
+    它读懂岗位、结合我的简历写开场白，<b>填进输入框但不替我发送</b>。
+  </p>
 
   <!-- ★ 三张入口卡放在最上面：进首页不用滚动就能点进去 -->
   <h2 class="top">直接点开看</h2>
@@ -124,7 +141,8 @@
       <p class="d">
         <b>推荐先看这个。</b>右侧栏的全部状态（生成加载态、识别原文、排障面板、三种异常提示…）
         + 配置页 6 个面板，下拉、输入框、开关、校验、保存反馈都是真的能操作的。
-        页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作再切到结果。
+        里面有 <b>「查看本次发送给 AI 的内容」</b> —— 直接看到送给 LLM 的完整提示词（含 JD 原文），
+        排障面板还能看到 AI 调用链。页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作。
       </p>
       <div class="go">开始体验 →</div>
     </a>
@@ -133,9 +151,9 @@
       <div class="ic">📋</div>
       <div class="t">示例简历</div>
       <p class="d">
-        左边是简历原文，右边是产品解析出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）。
-        开场白就是这两边的交集——所以能看到<b>「它为什么推荐那一条」</b>，
-        以及被标出来的那个简历里并不存在的数字。
+        左边是简历原文，右边是<b>脚本规则解析</b>出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）——
+        这一步<b>不用模型</b>：格式相对固定，规则更稳、每次结果一致还省 token。
+        这些字段随后会作为 <code>[RESUME]</code> 段进提示词，和 JD 一起交给 LLM。
       </p>
       <div class="go">看看读出了什么 →</div>
     </a>
@@ -145,13 +163,83 @@
       <div class="t">作品说明</div>
       <p class="d">
         为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点：
-        Boss 反爬混淆怎么还原、Agent 节点架构怎么做到<b>永不失败</b>、
-        一个骗了我很久的 bug 最后是怎么查出来的。
+        Boss 反爬混淆怎么还原、<b>Agent 节点架构怎么把 LLM 变成可控依赖</b>（门禁 / 契约 / 回退）、
+        以及一个骗了我很久的 bug 最后是怎么查出来的。
       </p>
       <div class="go">查看说明 →</div>
     </a>
 
   </div>
+
+  <h2>哪里用了模型，哪里故意不用</h2>
+  <p class="h2sub">
+    这条分工线是刻意画的：<b>模型只出现在"必须理解语义"的地方</b>，其余交给脚本与规则 ——
+    更快、更省 token、结果可复现，也不会因为模型抽风就把整个功能弄挂。
+  </p>
+  <div class="tblwrap">
+    <table class="tbl">
+      <thead>
+        <tr><th>环节</th><th>谁来干</th><th>为什么这么分</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>抓页面文本 / 反爬混淆还原</td>
+          <td><span class="rule">脚本 · 不用模型</span></td>
+          <td>「拿到用户真正看到的文本」是模型做不到的事 —— 它只能看见我们喂给它的东西。</td>
+        </tr>
+        <tr>
+          <td>JD 结构化（职责 / 要求 / 加分项 / 关键词）</td>
+          <td><span class="llm">LLM Agent 节点</span></td>
+          <td>
+            「从杂乱文本里读出结构」正是大模型最擅长的事。但它有<b>门禁</b>：
+            标题、公司、职责 ≥3、要求 ≥3、关键词 ≥6 时规则直接给结果，<b>根本不调模型</b>。
+          </td>
+        </tr>
+        <tr>
+          <td>简历结构化（经历 / 技能 / 量化成果 / 年限）</td>
+          <td><span class="rule">脚本规则 · 不用模型</span></td>
+          <td>简历格式相对固定，规则更稳、不花 token、每次结果一致 —— 这是可复现性的前提。</td>
+        </tr>
+        <tr>
+          <td>「简历 ∩ JD」匹配点</td>
+          <td><span class="rule">本地集合运算</span></td>
+          <td>求交集是确定性计算，本地做又快又准还不花钱，比让模型「自己找找看」可靠得多。</td>
+        </tr>
+        <tr>
+          <td><b>开场白生成</b></td>
+          <td><span class="llm">LLM · 主战场</span></td>
+          <td>唯一真正需要语言能力的地方：一次生成 1~5 条风格与长度都不同的候选。</td>
+        </tr>
+        <tr>
+          <td>候选打分与排序</td>
+          <td><span class="rule">本地 7 维加权 · 不用模型</span></td>
+          <td>
+            可解释、可复现、免费。每条都能说清「为什么推荐它、还差哪几个关键词」——
+            让模型给自己打分是没法解释的。
+          </td>
+        </tr>
+        <tr>
+          <td>事实护栏（数字回查简历）</td>
+          <td><span class="rule">脚本规则 · 不用模型</span></td>
+          <td>不能让模型自己校验自己。它编出来的数字，必须由简历原文来判。</td>
+        </tr>
+        <tr>
+          <td>模型挂了怎么办</td>
+          <td><span class="rule">规则结果兜底</span></td>
+          <td>
+            超时 12 秒 / JSON 非法 / 没配 Key → 静默回退到规则结果并说明原因。
+            <b>模型是增强项，不是依赖项</b>：它挂了，产品只是变笨一点，不会不可用。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="h2sub" style="margin-top:12px">
+    每一次 LLM 调用都长成一个可复用的 <b>Agent 节点</b>：
+    <code>规则先跑 → 门禁 skipLlmIf → 调模型 → Zod 校验 JSON → 与规则结果合并 → 失败静默回退</code>。
+    后来要加「简历结构化」这类新能力，只需要再写一个 <code>AgentDefinition</code>
+    （提示词 + 输出 schema + 门禁 + 兜底），不用碰主流程。
+  </p>
 
   <h2>为什么做这个</h2>
   <div class="prose">
@@ -162,52 +250,64 @@
       全埋在简历里，根本没时间一条条挑出来对应。
     </p>
     <p>
-      JDmate 把这个动作压到 3 秒：在 Boss 直聘的岗位页读懂当前 JD，结合<strong>我自己的简历</strong>
-      生成 1~5 条风格与长度都不同的开场白，本地打分后推荐最合适的一条，
+      JDmate 把这个动作压到 3 秒：在 Boss 直聘的岗位页用 <strong>LLM Agent 节点</strong>读懂当前 JD，
+      结合<strong>我自己的简历</strong>生成 1~5 条风格与长度都不同的开场白，本地打分后推荐最合适的一条，
       <strong>填进聊天输入框——但绝不替我发送</strong>。
     </p>
   </div>
 
   <h2>它具体做什么</h2>
-  <p class="h2sub">六个功能，每一个都对着上面那句"没时间一条条挑出来"。</p>
+  <p class="h2sub">六个功能，每一个都对着上面那句「没时间一条条挑出来」；括号里标的是这一步到底用不用模型。</p>
   <div class="feats">
 
     <div class="feat">
       <div class="ic">🔍</div>
-      <div class="t">读懂 JD —— 四级回退，不卡死</div>
+      <div class="t">JD 抽取：脚本拿到事实，Agent 读懂结构</div>
       <p class="d">
-        结构化选择器 → 语义选择器 → 启发式 → 手动粘贴。Boss 有反爬混淆（乱码类名、隐藏误导文本），
-        所以先把 <code>innerText</code> 还原成真实文本，再剔除「相似职位 / 推荐位 / 页脚」这些
-        长得像正文的噪声。任何一步失效都有下一步接着，最差也能把 JD 粘进来照样用。
+        <b>脚本</b>（不用模型）负责「拿到用户真正看到的文本」：先把 Boss 的反爬混淆
+        （乱码类名、隐藏误导文本）还原成真实 <code>innerText</code>，再剔除「相似职位 / 推荐位 / 页脚」这些
+        长得像正文的噪声，四级回退。然后交给 <b>LLM Agent 节点</b>：把杂乱文本读成
+        职责 / 要求 / 加分项 / 关键词。
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="ic">🤖</div>
+      <div class="t">Agent 节点：把模型当成不可靠依赖来设计</div>
+      <p class="d">
+        每一次 LLM 调用都是同一个骨架：<b>规则先跑 → 门禁 skipLlmIf → 调模型 →
+        Zod 校验 JSON → 与规则结果合并 → 失败静默回退</b>。
+        超时 12 秒、JSON 非法、没配 Key，都退回规则结果并说明原因 ——
+        模型是增强项，不是依赖项。
       </p>
     </div>
 
     <div class="feat">
       <div class="ic">✍️</div>
-      <div class="t">对着简历说话，而不是对着岗位夸</div>
+      <div class="t">LLM 主战场：写开场白，而不是夸岗位</div>
       <p class="d">
-        从简历里挑出与这个岗位<b>真正相关</b>的经历、技能与量化成果，一次给 1~5 条候选。
-        风格可选（专业硬核 / 数据说话 / 简洁直接 / 亲切自然 / 主动进取），
-        长度可选（一句话 / 100-150 字 / 200-300 字 / 400 字内）。
+        七层提示词（系统约束 / 简历 / <b>JD 原文</b> / 本地算好的匹配点 / 偏好 / 风格 / 输出契约）
+        一次生成 1~5 条候选，风格 5 选、长度 4 档。JD 原文整段进提示词，因为它才是事实来源；
+        匹配点在本地算好再给模型，<b>既省 token 又提高相关性</b>。
       </p>
     </div>
 
     <div class="feat">
       <div class="ic">📊</div>
-      <div class="t">本地打分，并且说清为什么</div>
+      <div class="t">打分不用模型：本地 7 维加权</div>
       <p class="d">
-        7 个维度加权（关键词覆盖、长度适配、量化密度、个性化程度、可读性、新鲜度、风格匹配）
-        再减去套话与夸张的扣分项。每条候选都给分数、推荐理由、命中了哪些关键词、
-        <b>还差哪几个</b>——不是只丢一句"这条更好"。
+        关键词覆盖、长度适配、量化密度、个性化程度、可读性、新鲜度、风格匹配，加权后减去套话扣分。
+        可解释、可复现、免费：每条都给分数、推荐理由、命中的关键词、
+        <b>还差哪几个</b>——不是只丢一句「这条更好」。
       </p>
     </div>
 
     <div class="feat">
       <div class="ic">🛡️</div>
-      <div class="t">事实护栏：不许替我编数字</div>
+      <div class="t">事实护栏：用规则拦住模型编的数字</div>
       <p class="d">
         话术里出现的每一个数字都会<b>回查简历原文</b>，简历里没有的量化成果会被点名标出。
-        宁可少说一句漂亮话，也不能让 AI 替我编一个"提升了 30%"。
+        <b>不能让模型自己校验自己</b> —— 它编出来的数字，必须由简历原文来判。
       </p>
     </div>
 
@@ -215,32 +315,27 @@
       <div class="ic">🚦</div>
       <div class="t">填进去，但绝不发送</div>
       <p class="d">
-        只把内容放进聊天输入框，回车由我自己按。这条规则<b>写死在代码里</b>，
-        也写进了送给模型的提示词里——它没有"自动发送"这个选项。
-      </p>
-    </div>
-
-    <div class="feat">
-      <div class="ic">🔁</div>
-      <div class="t">收藏岗位，反向优化简历</div>
-      <p class="d">
-        看到好岗位先一键收藏。攒够一批之后，用它们反查
-        <b>我反复对不上的是哪几项能力</b>，再回头改简历——投递方向比投递数量值钱。
+        只把内容放进聊天输入框，回车由我自己按。这条规则<b>写死在代码里，也写进了提示词里</b> ——
+        模型在这一步没有「自动发送」这个选项。
       </p>
     </div>
 
   </div>
+  <p class="h2sub" style="margin-top:14px">
+    另外两件顺手做的：<b>一键收藏岗位</b>，攒够一批后反查「我反复对不上的是哪几项能力」再回头改简历；
+    以及面板里的 <b>「查看本次发送给 AI 的内容」</b> —— 提示词全文可查，你能看到模型到底拿到了什么。
+  </p>
 
   <h2>几个想清楚了的取舍</h2>
   <p class="h2sub">这些是做完之后回头看，最影响成品质量的决定。</p>
   <div class="prins">
 
     <div class="princ">
-      <div class="t">规则先行，模型兜底</div>
+      <div class="t">不无脑用 AI：模型只负责「理解语义」</div>
       <p class="d">
-        抽取、分段、打分全部先用确定性规则算，只有"规则给不出结构化字段"时才交给模型；
+        抽取、分段、打分、护栏全部先用确定性规则算，只有「规则给不出结构化字段」时才调 LLM；
         模型超过 12 秒就直接用规则结果渲染并标注原因。
-        理由：聊天助手可以等，<b>找工作的工具不能</b>。
+        理由：聊天助手可以等，<b>找工作的工具不能</b>；而且规则算出来的东西可解释、可复现、还免费。
       </p>
     </div>
 

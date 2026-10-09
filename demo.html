@@ -18,7 +18,10 @@
   数据来源：**用户提供的 5 份真实 Boss 岗位页快照**（抽取结果经过测试断言），
   不是编造的示例数据。面板里的「重新识别」会换到另一份快照。
 
-  说明：这是**原型**，没有真实 AI 调用与网络请求。
+  说明：这是**原型**，LLM 调用走本地 Mock（不联网、不花钱）；真产品会真的调你配的模型。
+  ★ AI 分工必须讲清楚（用户明确要求"多强调 AI/Agent、并体现哪里用到了模型，但不是无脑全用 AI"）：
+    用模型：① JD 结构化（Agent 节点，规则能搞定就走门禁不调）② 开场白生成（LLM 主战场）
+    不用模型：页面抓取与反混淆、简历解析、匹配点计算、候选打分、事实护栏
 
   ★ 没有"状态切换"面板：每个界面状态都必须由真实产品动作走到
     （点生成 / 重新识别 / 关站点权限 / 删简历 / 切模式 / 设置 + 返回…），
@@ -313,9 +316,13 @@
   <div class="in">
     <h1>JDmate 功能演示 · 侧边栏 + 配置菜单</h1>
     <div class="sub">
+      一个<b>把 LLM 用在刀刃上的求职 Agent</b>：脚本负责拿到可靠事实，<b>模型负责理解语义</b>，规则负责永不失败。
       在 Boss 直聘的岗位页读懂当前 JD，结合自己的简历生成风格与长度都不同的开场白，
       本地打分后推荐最合适的一条，<b>填进聊天输入框但不发送</b>；数据只在本机，零后端。<br />
-      这一页把<b>右侧栏的全部功能与全部状态</b>、以及<b>配置菜单的 6 个面板</b>做成了可以真的点的原型：
+      <b>模型用在哪：</b>① JD 结构化（<b>Agent 节点</b>，规则能搞定就走门禁、根本不调）② <b>开场白生成（LLM 主战场）</b>。
+      <b>故意不用模型：</b>页面抓取与反混淆、简历解析、匹配点计算、候选打分、事实护栏 ——
+      这些是确定性计算，规则更快更准还免费。<br />
+      下面把<b>右侧栏的全部功能与全部状态</b>、<b>配置菜单的 6 个面板</b>做成了可以真的点的原型：
       下拉、输入、开关、校验、保存反馈都是活的，<b>每个状态都由真实操作走到</b>（页面底部有 12 项清单）。
     </div>
     <div class="who">
@@ -327,7 +334,7 @@
       <!-- 没有"界面切换"标签页：配置页是从侧边栏的「设置」按钮进去的，和真实产品一样 -->
       <a class="nb home" id="siteLink" href="https://junchuanshu912.github.io/jdmate/">← 返回主页</a>
       <button class="nb hide" id="backBtn" data-screen="panel">← 返回侧边栏</button>
-      <span class="proto" id="protoTag">原型 · 无真实 AI 调用</span>
+      <span class="proto" id="protoTag">真产品调 LLM · 本演示走 Mock</span>
     </div>
   </div>
 </div>
@@ -503,7 +510,7 @@
       <button class="gxi" data-act="g-raw"><span class="n">3</span><span class="tx"><b>识别质量</b><em>展开「查看识别到的原文」：它到底读到了什么，一眼可判</em></span></button>
       <button class="gxi" data-act="g-manual"><span class="n">4</span><span class="tx"><b>识别失败兜底</b><em>展开「手动粘贴」：抽不到也能把 JD 粘进来用</em></span></button>
       <button class="gxi" data-act="g-diag"><span class="n">5</span><span class="tx"><b>出问题怎么查</b><em>展开排障面板并<b>真的运行一次诊断</b></em></span></button>
-      <button class="gxi" data-act="g-prompt"><span class="n">6</span><span class="tx"><b>提示词长什么样</b><em>展开本次真正发给模型的内容（简历 + JD + 偏好）</em></span></button>
+      <button class="gxi" data-act="g-prompt"><span class="n">6</span><span class="tx"><b>提示词：模型到底拿到了什么</b><em>展开本次真正发给 LLM 的内容（系统约束 + 简历 + JD 原文 + 本地算好的匹配点）</em></span></button>
       <button class="gxi" data-act="g-error"><span class="n">7</span><span class="tx"><b>生成失败</b><em>去设置把 Base URL 改成 <code>api.deepseek.com</code>（少个协议头），再生成</em></span></button>
       <button class="gxi" data-act="g-fix"><span class="n">8</span><span class="tx"><b>修好再来</b><em>把 Base URL 填回去，再生成一次 —— 恢复成正常结果</em></span></button>
       <button class="gxi" data-act="g-demo"><span class="n">9</span><span class="tx"><b>DEMO 模式提醒</b><em>去设置切到 DEMO（不联网），看侧边栏的提醒长什么样</em></span></button>
@@ -926,7 +933,7 @@
 
 <footer>
   舒骏川 · <a href="mailto:1658449580@qq.com">1658449580@qq.com</a> · 求职方向：产品经理 / AI 应用开发
-  <div style="margin-top:5px">单文件功能演示 · 数据来自 5 份真实岗位页快照 · 无真实 AI 调用 · 可用浏览器「打印 → 另存为 PDF」</div>
+  <div style="margin-top:5px">单文件功能演示 · 数据来自 5 份真实岗位页快照 · LLM 调用走本地 Mock（真产品会真的调模型）· 可用浏览器「打印 → 另存为 PDF」</div>
   <div style="margin-top:10px"><a class="nb home" href="https://junchuanshu912.github.io/jdmate/">← 返回主页</a></div>
 </footer>
 
@@ -1356,6 +1363,8 @@
           '构建：面板 <span class="y">2026-10-08 14:10</span> · 内容脚本 <span class="y">2026-10-08 14:10</span>\n' +
           '面板数据链路：<span class="g">成功 812ms</span> · 拿到 JD（' + j.title + ' / ' + j.company + '）\n' +
           '面板当前状态：<span class="g">有 JD</span>\n' +
+          'AI 调用：<span class="g">1 次</span> · JD 结构化（门禁未命中 → 调模型）· 提示词 <span class="y">1487 token</span>\n' +
+          '           开场白生成：<span class="g">LLM 主战场</span> · deepseek-chat · 本地打分（不用模型）· 事实护栏（不用模型）\n' +
           '配置状态：简历=<span class="g">已导入（张三的简历 · v2）</span> · AI 模式=<span class="g">live</span> · 供应商=1 个（选中 DeepSeek）\n' +
           '  frame#0：{"jd":{"found":true,"strategy":"' + j.strategy + '","length":' + j.rawLen + ',"title":"' + j.title + '","company":"' + j.company + '"},"hasFloatBall":true}';
         toast('诊断完成：内容脚本存活，JD 已识别');
