@@ -51,20 +51,21 @@
   h2.top{margin-top:32px}
   .h2sub{margin:0 0 18px;font-size:13.5px;color:var(--text-3)}
 
-  /* ---------- 顶部：三张体验入口卡（进首页就能点） ---------- */
-  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media (max-width:860px){ .cards{grid-template-columns:1fr} h1{font-size:27px} }
+  /* ---------- 顶部：四张体验入口卡（进首页就能点） ---------- */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media (max-width:1180px){ .cards{grid-template-columns:1fr 1fr} }
+  @media (max-width:660px){ .cards{grid-template-columns:1fr} h1{font-size:27px} }
   .card{
     display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:16px;
-    padding:20px 22px;transition:.16s;box-shadow:0 1px 3px rgba(15,23,42,.05);color:inherit;position:relative;
+    padding:18px 19px;transition:.16s;box-shadow:0 1px 3px rgba(15,23,42,.05);color:inherit;position:relative;
   }
   .card:hover{border-color:var(--primary);transform:translateY(-3px);box-shadow:0 16px 36px rgba(79,70,229,.15);text-decoration:none}
-  .card .ic{font-size:22px}
-  .card .t{margin:9px 0 6px;font-size:17.5px;font-weight:750;color:var(--text)}
-  .card .d{font-size:13.5px;color:var(--text-2);margin:0;flex:1}
+  .card .ic{font-size:21px}
+  .card .t{margin:9px 0 6px;font-size:16.5px;font-weight:750;color:var(--text);line-height:1.35}
+  .card .d{font-size:13px;color:var(--text-2);margin:0;flex:1;line-height:1.72}
   .card .go{
-    margin-top:15px;font-size:13.5px;font-weight:700;color:#fff;background:var(--primary);
-    border-radius:9px;padding:8px 14px;align-self:flex-start;box-shadow:0 2px 10px rgba(79,70,229,.22);
+    margin-top:14px;font-size:13px;font-weight:700;color:#fff;background:var(--primary);
+    border-radius:9px;padding:7px 13px;align-self:flex-start;box-shadow:0 2px 10px rgba(79,70,229,.22);
   }
   .card:hover .go{background:#4338ca}
 
@@ -130,30 +131,40 @@
     它读懂岗位、结合我的简历写开场白，<b>填进输入框但不替我发送</b>。
   </p>
 
-  <!-- ★ 三张入口卡放在最上面：进首页不用滚动就能点进去 -->
+  <!-- ★ 四张入口卡放在最上面：进首页不用滚动就能点进去 -->
   <h2 class="top">直接点开看</h2>
-  <p class="h2sub">三个页面都能直接点，左上角都有「← 返回主页」。建议先点第一个。</p>
+  <p class="h2sub">四个入口都能直接点，进去后左上角都有「← 返回主页」。建议先点前两个 —— 右侧栏 + 配置菜单是两块不同的界面。</p>
   <div class="cards">
 
     <a class="card" href="./demo.html">
       <div class="ic">▶</div>
-      <div class="t">可交互原型</div>
+      <div class="t">可交互原型 · 右侧栏</div>
       <p class="d">
-        <b>推荐先看这个。</b>右侧栏的全部状态（生成加载态、识别原文、排障面板、三种异常提示…）
-        + 配置页 6 个面板，下拉、输入框、开关、校验、保存反馈都是真的能操作的。
-        里面有 <b>「查看本次发送给 AI 的内容」</b> —— 直接看到送给 LLM 的完整提示词（含 JD 原文），
-        排障面板还能看到 AI 调用链。页面底部有 <b>12 项清单</b>，点它会真的走一遍产品里的操作。
+        <b>推荐先看这个。</b>插件在 Boss 岗位页上的侧边栏：全部状态（生成加载态、识别原文、
+        排障面板、三种异常提示…）都由真实操作走到，页面底部有 <b>12 项清单</b>。
+        里面有 <b>「查看本次发送给 AI 的内容」</b>，能直接看到送给 LLM 的完整提示词。
       </p>
       <div class="go">开始体验 →</div>
+    </a>
+
+    <a class="card" href="./demo.html#options">
+      <div class="ic">⚙️</div>
+      <div class="t">配置菜单 · 6 个面板</div>
+      <p class="d">
+        <b>别漏了这个。</b>展开后的完整设置页：AI 供应商与运行模式、简历库与版本管理、
+        生成偏好、收藏岗位、生成历史、数据与隐私。
+        下拉、输入框、开关都是<b>真控件</b>，有校验、脏标记、保存反馈与还原。
+      </p>
+      <div class="go">直接进配置页 →</div>
     </a>
 
     <a class="card" href="./resume.html">
       <div class="ic">📋</div>
       <div class="t">示例简历</div>
       <p class="d">
-        左边是简历原文，右边是<b>脚本规则解析</b>出的结构化字段（经历 / 技能 / 量化成果 / 年限推算）——
-        这一步<b>不用模型</b>：格式相对固定，规则更稳、每次结果一致还省 token。
-        这些字段随后会作为 <code>[RESUME]</code> 段进提示词，和 JD 一起交给 LLM。
+        左边是简历原文，右边是<b>脚本规则解析</b>出的结构化字段 ——
+        这一步<b>不用模型</b>（格式固定、规则更稳、省 token）。
+        这些字段随后作为 <code>[RESUME]</code> 段进提示词，和 JD 一起交给 LLM。
       </p>
       <div class="go">看看读出了什么 →</div>
     </a>
@@ -162,9 +173,9 @@
       <div class="ic">📄</div>
       <div class="t">作品说明</div>
       <p class="d">
-        为什么做、否掉了哪些方案、被否掉的理由，以及三个真实技术难点：
-        Boss 反爬混淆怎么还原、<b>Agent 节点架构怎么把 LLM 变成可控依赖</b>（门禁 / 契约 / 回退）、
-        以及一个骗了我很久的 bug 最后是怎么查出来的。
+        为什么做、否掉了哪些方案，以及三个真实技术难点：
+        Boss 反爬混淆怎么还原、<b>Agent 节点架构怎么把 LLM 变成可控依赖</b>、
+        一个骗了我很久的 bug 最后是怎么查出来的。
       </p>
       <div class="go">查看说明 →</div>
     </a>
